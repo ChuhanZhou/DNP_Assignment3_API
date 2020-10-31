@@ -18,6 +18,20 @@ namespace DNP_Assignment3_API.Controllers
         {
             modelManager = ModelManager.GetModelManager();
         }
+
+        [HttpPost]
+        public async Task<ActionResult<string>> AddNewUser([FromBody] User newUser)
+        {
+            try
+            {
+                return modelManager.AddUser(newUser);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return StatusCode(500, e.Message);
+            }
+        }
         
         [HttpGet]
         public async Task<ActionResult<UserList>> GetAllUser()
