@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
 using DNP_Assignment3_API.Data;
@@ -61,6 +62,33 @@ namespace DNP_Assignment3_API.Controllers
             {
                 Console.WriteLine(e);
                 return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpPatch]
+        public async Task<ActionResult<string>> UpdatePassword([FromBody] List<User> userList)
+        {
+            try
+            {
+                return modelManager.UpdatePassword(userList[0],userList[1]);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return StatusCode(500, e.Message);
+            }
+        }
+        
+        [HttpDelete]
+        public async Task RemoveUser([FromQuery] string userName)
+        {
+            try
+            {
+                modelManager.RemoveUser(modelManager.GetAllUser().GetUserByUserName(userName));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
             }
         }
     }
