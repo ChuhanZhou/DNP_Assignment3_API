@@ -10,22 +10,22 @@ using Microsoft.AspNetCore.Mvc;
 namespace DNP_Assignment3_API.Controllers
 {
     [ApiController]
-    [Route("api/user")]
-    public class UserListController : ControllerBase
+    [Route("api/family")]
+    public class FamilyListController : ControllerBase
     {
         private IModelManager modelManager;
 
-        public UserListController()
+        public FamilyListController()
         {
             modelManager = ModelManager.GetModelManager();
         }
 
         [HttpPost]
-        public async Task<ActionResult<string>> AddUser([FromBody] User newUser)
+        public async Task<ActionResult<string>> AddFamily([FromBody] Family newFamily)
         {
             try
             {
-                return modelManager.AddUser(newUser);
+                return modelManager.AddFamily(newFamily);
             }
             catch (Exception e)
             {
@@ -33,30 +33,14 @@ namespace DNP_Assignment3_API.Controllers
                 return StatusCode(500, e.Message);
             }
         }
-        
+
         [HttpGet]
-        public async Task<ActionResult<UserList>> GetAllUser()
+        public async Task<ActionResult<FamilyList>> GetAllFamily()
         {
             try
             {
-                var userList = modelManager.GetAllUser();
-                return Ok(JsonSerializer.Serialize(userList,new JsonSerializerOptions {WriteIndented = true}));
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                return StatusCode(500, e.Message);
-            }
-        }
-        
-        [Route("login")]
-        [HttpGet]
-        public async Task<ActionResult<bool>> Login([FromQuery] string userJson)
-        {
-            try
-            {
-                var user = JsonSerializer.Deserialize<User>(userJson);
-                return Ok(modelManager.Login(user));
+                var familyList = modelManager.GetAllFamily();
+                return Ok(JsonSerializer.Serialize(familyList, new JsonSerializerOptions {WriteIndented = true}));
             }
             catch (Exception e)
             {
@@ -66,11 +50,11 @@ namespace DNP_Assignment3_API.Controllers
         }
 
         [HttpPatch]
-        public async Task<ActionResult<string>> UpdatePassword([FromBody] List<User> userList)
+        public async Task<ActionResult<string>> UpdateFamily([FromBody] List<Family> familyList)
         {
             try
             {
-                return modelManager.UpdatePassword(userList[0],userList[1]);
+                return modelManager.UpdateFamily(familyList[0], familyList[1]);
             }
             catch (Exception e)
             {
@@ -78,13 +62,13 @@ namespace DNP_Assignment3_API.Controllers
                 return StatusCode(500, e.Message);
             }
         }
-        
+
         [HttpDelete]
-        public async Task RemoveUser([FromQuery] string userName)
+        public async Task RemoveFamily([FromQuery] string streetName,[FromQuery] int houseNumber)
         {
             try
             {
-                modelManager.RemoveUser(modelManager.GetAllUser().GetUserByUserName(userName));
+                modelManager.RemoveFamily(modelManager.GetAllFamily().GetFamilyByStreetNameAndHouseNumber(streetName,houseNumber));
             }
             catch (Exception e)
             {
