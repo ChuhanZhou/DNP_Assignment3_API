@@ -7,9 +7,19 @@ namespace DNP_Assignment3_API.Data
 {
     public class ModelManager : IModelManager
     {
+        private static ModelManager modelManager;
         private ModelPackage modelPackage;
         private readonly string dataFileName;
 
+        public static ModelManager GetModelManager()
+        {
+            if (modelManager == null)
+            {
+                modelManager = new ModelManager();
+            }
+            return modelManager;
+        }
+        
         public ModelManager()
         {
             modelPackage = new ModelPackage();

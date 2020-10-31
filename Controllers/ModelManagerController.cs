@@ -3,29 +3,28 @@ using System.Threading.Tasks;
 using DNP_Assignment3_API.Data;
 using DNP_Assignment3_API.Models;
 using DNP_Assignment3_API.Models.List;
+using DNP_Assignment3_API.Models.Unit;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DNP_Assignment3_API.Controllers
 {
     [ApiController]
-    [Route("api")]
+    [Route("api/all")]
     public class ModelManagerController : ControllerBase
     {
         private IModelManager modelManager;
 
         public ModelManagerController()
         {
-            modelManager = new ModelManager();
+            modelManager = ModelManager.GetModelManager();
         }
-
-        [Route("user")]
+        
         [HttpGet]
-        public async Task<ActionResult<UserList>> GetAllUser()
+        public async Task<ActionResult<ModelManager>> GetModelManager()
         {
             try
             {
-                UserList userList = modelManager.GetAllUser();
-                return Ok(userList);
+                return Ok(modelManager);
             }
             catch (Exception e)
             {
