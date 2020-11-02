@@ -50,6 +50,9 @@
               "ChildInterests": [
                 {
                   "Type": "Gaming"
+                },
+                {
+                  "Type": "Ballet"
                 }
               ],
               "Pets": [
@@ -176,6 +179,9 @@
         "ChildInterests": [
           {
             "Type": "Gaming"
+          },
+          {
+            "Type": "Ballet"
           }
         ],
         "Pets": [

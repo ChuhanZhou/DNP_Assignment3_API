@@ -42,6 +42,48 @@ namespace DNP_Assignment3_API.Controllers
             }
         }
 
-        
+        [HttpPatch]
+        public async Task<ActionResult<string>> UpdatePerson([FromBody] string newPersonJson)
+        {
+            try
+            {
+                var newPerson = JsonSerializer.Deserialize<Person>(newPersonJson);
+                if (modelManager.GetAllAdult().GetAdultById(newPerson.Id)!=null)
+                {
+                    newPerson = JsonSerializer.Deserialize<Adult>(newPersonJson);
+                }
+                else if (modelManager.GetAllChild().GetChildById(newPerson.Id)!=null)
+                {
+                    newPerson = JsonSerializer.Deserialize<Child>(newPersonJson);
+                }
+                return modelManager.UpdatePerson(newPerson);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpDelete]
+        public async Task RemovePerson([FromQuery] int id)
+        {
+            try
+            {
+                if (modelManager.GetAllAdult().GetAdultById(id)!=null)
+                {
+                    modelManager.RemovePerson(modelManager.GetAllAdult().GetAdultById(id));
+                }
+                else if (modelManager.GetAllChild().GetChildById(id)!=null)
+                {
+                    modelManager.RemovePerson(modelManager.GetAllChild().GetChildById(id));
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
     }
 }
