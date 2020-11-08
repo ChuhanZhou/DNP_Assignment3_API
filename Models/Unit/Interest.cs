@@ -19,7 +19,7 @@ public class ValidInterest : ValidationAttribute {
     protected override ValidationResult IsValid(object value, ValidationContext validationContext)
     {
         List<string> valid = Interest.ValidInterest;
-        if (valid == null || valid.Contains(value.ToString().ToLower())) 
+        if (valid == null || valid.Contains(value.ToString())) 
         {
             return ValidationResult.Success;
         }

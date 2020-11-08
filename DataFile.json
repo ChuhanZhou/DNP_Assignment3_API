@@ -102,6 +102,9 @@
               "ChildInterests": [
                 {
                   "Type": "Frozen"
+                },
+                {
+                  "Type": "Board Games"
                 }
               ],
               "Pets": [],
@@ -206,6 +209,9 @@
         "ChildInterests": [
           {
             "Type": "Frozen"
+          },
+          {
+            "Type": "Board Games"
           }
         ],
         "Pets": [],
